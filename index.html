@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campanhas de Segurança — Orçamento</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="layout">
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="">
+  <div class="lightbox-label" id="lightbox-label"></div>
+</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="logo-area">
+    <img src="https://res.cloudinary.com/dxnruvmgu/image/upload/v1770865209/Intelig%C3%AAncia_vertical_branco_eqljpf.png" alt="Logo" style="width:100%;max-width:160px;display:block;margin-bottom:14px;">
+    <div class="logo-sub" style="margin-top:0;">Orçamento Anual</div>
+  </div>
+  <nav class="nav">
+    <div class="nav-label">Navegação</div>
+    <button class="nav-item" id="nav-dashboard" onclick="switchTab('dashboard')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="9" height="9" rx="1"/><rect x="13" y="3" width="9" height="9" rx="1"/><rect x="2" y="14" width="9" height="9" rx="1"/><rect x="13" y="14" width="9" height="9" rx="1"/></svg>
+      Dashboard
+    </button>
+    <button class="nav-item active" id="nav-quadro" onclick="switchTab('quadro')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Quadro de Motoristas
+    </button>
+    <button class="nav-item" id="nav-recursos" onclick="switchTab('recursos')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      Recursos
+    </button>
+    <button class="nav-item" id="nav-campanhas" onclick="switchTab('campanhas')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Campanhas
+    </button>
+    <div class="nav-label">Garagens</div>
+    <button class="nav-item" id="nav-gfaixa" onclick="switchTab('gfaixa')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="3" rx="1"/><path d="M3 7h18M3 17h18"/></svg>
+      Garagens — Faixa
+    </button>
+    <button class="nav-item" id="nav-gbanner" onclick="switchTab('gbanner')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="13" rx="1"/><path d="M4 17h16M9 21h6"/></svg>
+      Garagens — Banner
+    </button>
+    <div class="nav-label">Distribuição</div>
+    <button class="nav-item" id="nav-envio" onclick="switchTab('envio')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+      Separação / Envio
+    </button>
+    <div class="nav-label">Gestão</div>
+    <button class="nav-item" id="nav-gerencial" onclick="switchTab('gerencial')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Gerencial
+    </button>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sync-info"><span class="sync-dot"></span>Google Sheets<br><span id="sync-time" style="color:var(--text2);">conectando...</span></div>
+    <button class="btn-reload" onclick="reloadAll()">↻ Atualizar dados</button>
+    <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">
+      <div style="font-size:10px;color:var(--text3);margin-bottom:6px;display:flex;align-items:center;gap:5px;">
+        <span id="fb-dot" style="width:6px;height:6px;border-radius:50%;background:var(--text3);display:inline-block;"></span>
+        <span id="fb-status">Firebase — aguardando</span>
+      </div>
+      <button onclick="salvarFirebase()" class="btn-reload" style="background:var(--orange-bg);border-color:var(--orange-border);color:var(--orange2);">💾 Salvar agora</button>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <div>
+      <div class="page-title" id="page-title">Quadro de Motoristas</div>
+      <div class="page-sub" id="page-sub">Motoristas orçados por empresa e mês</div>
+    </div>
+    <div id="ano-badge" style="font-size:12px;color:var(--text3);padding-top:6px;"></div>
+  </div>
+  <div class="content">
+    <div class="metrics-row" id="mrow" style="display:none;">
+      <div class="mc"><div class="mc-l">Empresas</div><div class="mc-v" id="mc-emp">—</div><div class="mc-s">no quadro</div></div>
+      <div class="mc"><div class="mc-l">Total anual</div><div class="mc-v" id="mc-tot">—</div><div class="mc-s">soma dos meses</div></div>
+      <div class="mc orange"><div class="mc-l">Orçamento total</div><div class="mc-v" id="mc-orc">R$ 0</div><div class="mc-s">8 campanhas</div></div>
+      <div class="mc green"><div class="mc-l">Realizado total</div><div class="mc-v" id="mc-real">R$ 0</div><div class="mc-s">registrado</div></div>
+    </div>
+    <div id="pnl-dashboard" style="display:none;"></div>
+    <div id="pnl-quadro"></div>
+    <div id="pnl-recursos" style="display:none;"></div>
+    <div id="pnl-campanhas" style="display:none;"></div>
+    <div id="pnl-gfaixa" style="display:none;"></div>
+    <div id="pnl-gbanner" style="display:none;"></div>
+    <div id="pnl-envio" style="display:none;"></div>
+    <div id="pnl-gerencial" style="display:none;"></div>
+  </div>
+</main>
+</div>
+
+<script src="app.js"></script>
+<script type="module" src="firebase.js"></script>
+</body>
+</html>
