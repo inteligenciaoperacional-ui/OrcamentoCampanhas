@@ -181,3 +181,202 @@ tbody tr:hover td{background:rgba(255,255,255,0.02);}
 .dash-arte-empty svg{width:28px;height:28px;color:var(--text3);}
 .dash-arte-empty span{font-size:11px;color:var(--text3);}
 @media(max-width:900px){.dash-cards{grid-template-columns:1fr 1fr;}}
+/* ═══════════════════════════════════════
+   MOBILE — Layout estilo app
+   ═══════════════════════════════════════ */
+@media(max-width:768px){
+
+  /* Esconde sidebar no mobile */
+  .sidebar{display:none;}
+
+  /* Conteúdo ocupa tela toda */
+  .main{margin-left:0;padding-bottom:80px;}
+
+  /* Topbar mobile */
+  .topbar{
+    padding:16px 16px 0;
+    position:sticky;
+    top:0;
+    background:var(--bg);
+    z-index:50;
+    border-bottom:1px solid var(--border);
+    padding-bottom:12px;
+    margin-bottom:0;
+  }
+  .page-title{font-size:20px;}
+  .page-sub{font-size:11px;}
+
+  /* Header do app no topo mobile */
+  .mobile-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 16px;
+    background:var(--bg2);
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:99;
+  }
+  .mobile-header-logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .mobile-header-logo img{height:32px;width:auto;}
+  .mobile-header-title{
+    font-size:13px;
+    font-weight:700;
+    color:var(--text);
+    font-family:'Syne',sans-serif;
+    line-height:1.1;
+  }
+  .mobile-header-title span{
+    display:block;
+    font-size:9px;
+    font-weight:400;
+    color:var(--text3);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    font-family:'Inter',sans-serif;
+  }
+  .mobile-header-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .mobile-action-btn{
+    width:34px;height:34px;
+    border-radius:50%;
+    border:1px solid var(--border2);
+    background:var(--card);
+    color:var(--text2);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;font-size:14px;
+  }
+  .mobile-status{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-size:10px;
+    color:var(--text3);
+  }
+
+  /* Bottom navigation */
+  .bottom-nav{
+    display:flex;
+    position:fixed;
+    bottom:0;left:0;right:0;
+    background:var(--bg2);
+    border-top:1px solid var(--border);
+    z-index:200;
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  .bottom-nav-item{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:8px 4px 6px;
+    cursor:pointer;
+    border:none;
+    background:none;
+    color:var(--text3);
+    font-family:'Inter',sans-serif;
+    font-size:9px;
+    font-weight:500;
+    gap:4px;
+    transition:color 0.15s;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+  .bottom-nav-item svg{width:20px;height:20px;flex-shrink:0;}
+  .bottom-nav-item.active{color:var(--orange2);}
+  .bottom-nav-item.active svg{stroke:var(--orange2);}
+
+  /* "Mais" menu - drawer */
+  .more-drawer{
+    display:none;
+    position:fixed;
+    bottom:60px;left:0;right:0;
+    background:var(--bg2);
+    border-top:1px solid var(--border);
+    border-radius:20px 20px 0 0;
+    z-index:199;
+    padding:12px 0 8px;
+    box-shadow:0 -8px 32px rgba(0,0,0,0.5);
+  }
+  .more-drawer.open{display:block;}
+  .more-drawer-handle{
+    width:36px;height:4px;
+    background:var(--border2);
+    border-radius:2px;
+    margin:0 auto 14px;
+  }
+  .more-drawer-item{
+    display:flex;align-items:center;gap:14px;
+    padding:12px 24px;
+    cursor:pointer;
+    font-size:14px;color:var(--text2);
+    border:none;background:none;
+    width:100%;text-align:left;
+    font-family:'Inter',sans-serif;
+  }
+  .more-drawer-item svg{width:18px;height:18px;flex-shrink:0;}
+  .more-drawer-item.active{color:var(--orange2);}
+  .more-drawer-overlay{
+    display:none;
+    position:fixed;inset:0;
+    background:rgba(0,0,0,0.5);
+    z-index:198;
+  }
+  .more-drawer-overlay.open{display:block;}
+
+  /* Content padding mobile */
+  .content{padding:12px 14px 24px;}
+
+  /* Cards métricas mobile - 2x2 */
+  .metrics-row{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+  .mc{padding:12px 14px;}
+  .mc .mc-v{font-size:18px;}
+
+  /* Tabelas mobile - scroll horizontal */
+  .tbl-wrap{border-radius:var(--radius);}
+  table{font-size:11px;}
+  thead th{padding:8px 8px;font-size:9px;}
+  tbody td{padding:8px 8px;}
+
+  /* Cards campanha mobile */
+  .camp-header{padding:14px 16px;}
+  .camp-meta{gap:8px;}
+  .c-name{font-size:13px;}
+  .c-totals{gap:14px;}
+  .ct-item .ctv{font-size:12px;}
+  .camp-body{padding:16px;}
+
+  /* Dashboard mobile */
+  .dash-cards{grid-template-columns:1fr 1fr;gap:8px;}
+  .dash-card{padding:12px 14px;}
+  .dash-card .dc-value{font-size:16px;}
+  .dash-month-badge{font-size:22px;}
+
+  /* Garagens mobile */
+  .garagens-grid{grid-template-columns:1fr;}
+
+  /* Sbox mobile */
+  .sbox{padding:14px;}
+  .res-grid{grid-template-columns:1fr 1fr;gap:6px;}
+  .chk-res{padding:7px 10px;font-size:11px;}
+
+  /* Artes mobile */
+  .artes-grid{grid-template-columns:1fr 1fr;}
+}
+
+/* Desktop — esconde elementos mobile */
+@media(min-width:769px){
+  .mobile-header{display:none;}
+  .bottom-nav{display:none;}
+  .more-drawer{display:none;}
+  .more-drawer-overlay{display:none;}
+}
