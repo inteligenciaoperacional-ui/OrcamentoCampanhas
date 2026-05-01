@@ -1164,3 +1164,43 @@ document.getElementById('pnl-gbanner').innerHTML=`<div class="loader-screen"><di
 loadMot();
 loadFaixa();
 loadBanner();
+/* ── MOBILE DRAWER ── */
+function openMoreDrawer(){
+  document.getElementById('more-drawer').classList.add('open');
+  document.getElementById('more-overlay').classList.add('open');
+}
+function closeMoreDrawer(){
+  document.getElementById('more-drawer').classList.remove('open');
+  document.getElementById('more-overlay').classList.remove('open');
+}
+
+/* Sincroniza dot do Firebase no header mobile */
+const _fbStatus_orig = window.fbStatus;
+const origSwitchTab = window.switchTab;
+
+// Override switchTab para atualizar bottom nav
+const _origSwitch = switchTab;
+window.switchTabMobile = function(tab){
+  // Bottom nav — só as 4 principais
+  const bnTabs = ['dashboard','quadro','campanhas','gerencial'];
+  bnTabs.forEach(t=>{
+    const b = document.getElementById('bn-'+t);
+    if(b) b.className = t===tab ? 'bottom-nav-item active' : 'bottom-nav-item';
+  });
+  // More drawer items
+  ['recursos','gfaixa','gbanner','envio','gerencial'].forEach(t=>{
+    const b = document.getElementById('md-'+t);
+    if(b) b.className = t===tab ? 'more-drawer-item active' : 'more-drawer-item';
+  });
+  // Sync fb-dot mobile
+  const dotM = document.getElementById('fb-dot-m');
+  const dot = document.getElementById('fb-dot');
+  if(dotM && dot) dotM.style.background = dot.style.background;
+};
+
+// Patch switchTab
+const _st = switchTab;
+switchTab = function(tab){
+  _st(tab);
+  window.switchTabMobile(tab);
+};
