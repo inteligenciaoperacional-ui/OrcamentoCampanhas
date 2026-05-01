@@ -4,7 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Campanhas de Segurança — Orçamento</title>
-<link rel="icon" type="image/png" href="https://res.cloudinary.com/dxnruvmgu/image/upload/v1775248407/Intelig%C3%AAncia_branco_m524fk.png">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4DBFBA">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Campanhas">
+<link rel="apple-touch-icon" href="icon-192.png">
+
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -104,5 +113,14 @@
 
 <script src="app.js"></script>
 <script type="module" src="firebase.js"></script>
+<script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(r => console.log('SW registrado:', r.scope))
+        .catch(e => console.log('SW erro:', e));
+    });
+  }
+</script>
 </body>
 </html>
